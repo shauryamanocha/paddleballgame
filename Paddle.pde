@@ -50,7 +50,7 @@ public class Paddle {
     for (PVector c : colliders) {//iterate through all of the colliders
       if (PVector.dist(c, b.pos)<(ySize/(2*4)+b.siz/2)) {//check if the collider and ball are touching
         b.pos.sub(b.vel);//undo the balls movement
-        b.vel.rotate(2*(PVector.angleBetween(b.vel, normal)));//rotate the balls velocity to follow the law of reflection
+        b.vel.rotate(-2*(PVector.angleBetween(b.vel, normal)));//rotate the balls velocity to follow the law of reflection
         ArrayListAssignment.bounceSound.rewind();//play the bounce sound
         ArrayListAssignment.bounceSound.play();
         break;//stop checking for collisions
@@ -59,7 +59,7 @@ public class Paddle {
   }
 
   private void updateColliders() {//method to update the positions of the colliders
-    //showIndicator();
+    showIndicator();
     PVector dir = new PVector(1, 0);//vector used to represent the direction of the paddle
     dir.rotate(rotation);
     float ballSpace = (xSize-ySize/(2f*4f))/colliders.length;//determines the spacing between each collider
