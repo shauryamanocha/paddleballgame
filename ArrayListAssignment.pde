@@ -1,3 +1,9 @@
+/*
+Shaurya Manocha
+Last updated May 21 2019
+Added a scoreboard that saves a file locally to retain highscores
+*/
+
 import ddf.minim.*;
 //import minim for sound playback
 public static ArrayList<BouncingObject> pieces;
