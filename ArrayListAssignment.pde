@@ -153,6 +153,8 @@ void initHighScores() {//method to make sure the table is correctly formatted
   while (highScores.getRowCount()>savedScores) {//remove highscores to make sure there aren't too many table entries
     highScores.removeRow(highScores.getRowCount()-1);
   }
+  highScores.setColumnType("score",Table.INT);
+  highScores.sortReverse("score");
   saveTable(highScores, "data/highScores.csv");//save the formatted table
   println("high scores initialized as: ");//print the table to the console
   for (TableRow r : highScores.rows()) {
