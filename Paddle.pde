@@ -22,10 +22,10 @@ public class Paddle {
     spin();
   }
 
-  public void showIndicator() {//method to draw the normal vector
+  public void updateIndicator() {//method to draw the normal vector
     normal.rotate(rotation-HALF_PI-normal.heading());
     normal.normalize();
-    normal.mult(20);
+    normal.mult(50);
     strokeWeight(3);
     stroke(255);
     line(pos.x, pos.y, pos.x+normal.x, pos.y+normal.y);
@@ -50,20 +50,25 @@ public class Paddle {
     for (PVector c : colliders) {//iterate through all of the colliders
       if (PVector.dist(c, b.pos)<(ySize/(2*4)+b.siz/2)) {//check if the collider and ball are touching
         b.pos.sub(b.vel);//undo the balls movement
-        //b.vel.rotate(-2*(PVector.angleBetween(b.vel, normal)));//rotate the balls velocity to follow the law of reflection
-        float theta = b.vel.heading()-normal.heading()+radians(90);
-        b.vel.rotate(normal.heading()-b.vel.heading());
-        //b.vel.rotate(theta);
-        println(degrees(theta));
+        float speed = b.vel.mag();//record the balls incoming speed
+        PVector newVel = normal.copy();//set the velocity to be the direction of the normal vector
+        newVel.rotate(normal.heading()-b.vel.heading());//rotate the velocity to follow the law of reflectio
+        newVel.y*=-1;
+        newVel.x*=-1;//flip the velocity components
+        b.vel.set(newVel);//apply the new velocity
+        b.vel.normalize();
+        b.vel.mult(speed);
+        //make sure the balls velocity when it hits the paddle is the same as the balls velocity when it bounces off the paddle
         ArrayListAssignment.bounceSound.rewind();//play the bounce sound
         ArrayListAssignment.bounceSound.play();
+
         break;//stop checking for collisions
       }
     }
   }
 
   private void updateColliders() {//method to update the positions of the colliders
-    showIndicator();
+    updateIndicator();
     PVector dir = new PVector(1, 0);//vector used to represent the direction of the paddle
     dir.rotate(rotation);
     float ballSpace = (xSize-ySize/(2f*4f))/colliders.length;//determines the spacing between each collider
@@ -90,7 +95,7 @@ public class Paddle {
       ellipse(c.x, c.y, ySize/4, ySize/4);
     }
   }
-  
+
   private void spin() {//method used to spin the paddle
     if (keyPressed) {
       switch(keyCode) {

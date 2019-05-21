@@ -28,6 +28,12 @@ class PlainCircle extends BouncingObject {
     this.boxes = boxes;
     vel = PVector.random2D().mult(speed);
   }
+  
+  void showVel(){
+    stroke(255,0,0);
+    strokeWeight(3);
+    line(pos.x,pos.y,pos.x+vel.x*30,pos.y+vel.y*30);
+  }
 
   void periodic() {
     for (int i = 0; i<boxes.size(); i++) {//iterate through the game objects
@@ -125,5 +131,6 @@ class PlainCircle extends BouncingObject {
       fill(c, 128);
     }
     ellipse(pos.x, pos.y, siz, siz);
+    //showVel();
   }
 }

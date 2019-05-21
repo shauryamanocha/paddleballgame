@@ -46,7 +46,7 @@ public static AudioPlayer hitBlockSound, bounceSound, gameoverSound, music;
 //create audio players for all of the different sounds
 public static int score;
 void setup() {
-  size(600, 600); 
+  size(600, 600);
   score = 0;
   minim = new Minim(this);
   hitBlockSound = minim.loadFile("hitblocksound.mp3");

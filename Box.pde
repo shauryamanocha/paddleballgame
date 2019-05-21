@@ -68,6 +68,8 @@ public class Box extends BouncingObject {
   void die(){
     objects.remove(this);
   }
+  
+  
 
   void move() {//function used to move the block
     if (pos.y<floorLevel-siz/2) {//if the block isnt on the ground apply gravity
